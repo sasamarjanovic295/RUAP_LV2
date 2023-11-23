@@ -20,10 +20,20 @@ namespace ContactManager.Controllers
             this.contactRepository = new ContactRepository(httpContextAccessor);
         }
 
+        [HttpGet]
         public Contact[] Get()
         {
             return contactRepository.GetAllContacts();
         }
+
+        [HttpPost]
+        public ActionResult Post(Contact contact)
+        {
+            this.contactRepository.SaveContact(contact);
+
+            var response = CreatedAtAction(nameof(Post), contact);
+
+            return response;
+        }
     }
 }
-
