@@ -6,17 +6,18 @@ using ContactManager.Models;
 using ContactManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ContactManager.Controllers
 {
+    [Route("api/[controller]")]
     public class ContactController : Controller
     {
         private ContactRepository contactRepository;
 
-        public ContactController()
+        public ContactController(IHttpContextAccessor httpContextAccessor)
         {
-            this.contactRepository = new ContactRepository();
+            this.contactRepository = new ContactRepository(httpContextAccessor);
         }
 
         public Contact[] Get()
